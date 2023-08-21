@@ -1,15 +1,17 @@
 ## ввод числа
-souce = int (input ('5-значное число: '))
+source = int(input('5-значное число: '))
 # "Разложение" числа на цифры
 source_txt = str(source)
-d1 = num_str[0]
-d2 = num_str[1]
-d3 = num_str[2]
-d4 = num_str[3]
-d5 = num_str[4]
-# 
-
+d1 = float(source_txt[0])
+d2 = float(source_txt[1])
+d3 = float(source_txt[2])
+d4 = float(source_txt[3])
+d5 = float(source_txt[4])
+# print(d1, d2, d3, d4, d5)
 # Операции
-r1 = int(source*d3//(d1-d2))
+r0 = d4 ** d5
+r1 = r0 * d3
+r2 = d1 - d2
+r3 = r1 // r2
 ## final
-print (f'Результат: ' {r1})
+print(f'Результат:', r3)

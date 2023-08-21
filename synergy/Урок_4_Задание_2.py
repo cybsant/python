@@ -1,5 +1,5 @@
-## ввод числа
-source = int(input('5-значное число: '))
+## ввод числа 
+source = float(input('5-значное число: '))
 # "Разложение" числа на цифры
 source_txt = str(source)
 d1 = float(source_txt[0])

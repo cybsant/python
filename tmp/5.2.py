@@ -1,5 +1,4 @@
-# """ Дано """
-WORD = str(input("Введите слово: ").lower())
+WORD = str(input("Введите слово: ").lower()) # """ Дано """
 GL_CNT = 0
 A_CNT = 0
 E_CNT = 0
@@ -9,8 +8,7 @@ U_CNT = 0
 SG_CNT = 0
 NUM_CNT = 0
 NUM_SRC = len(WORD)
-# """ Считаем """
-while NUM_CNT < NUM_SRC: # Пока не закончатся буквы
+while NUM_CNT < NUM_SRC: # """ Считаем пока не закончатся буквы """
     if WORD[NUM_CNT] == 'a':
         GL_CNT += 1
         A_CNT += 1
@@ -29,8 +27,7 @@ while NUM_CNT < NUM_SRC: # Пока не закончатся буквы
     else:
         SG_CNT += 1
     NUM_CNT += 1
-# """ Замена 0 на false """
-if A_CNT == 0:
+if A_CNT == 0: # """ Подстановка 'False' """
     A_CNT = 'False'
 if E_CNT == 0:
     E_CNT = 'False'
@@ -40,8 +37,7 @@ if O_CNT == 0:
     O_CNT = 'False'
 if U_CNT == 0:
     U_CNT = 'False'
-# """ Вывод """
-print("Всего букв:", NUM_SRC)
+print("Всего букв:", NUM_SRC) # """ Вывод результаттов """
 print("Согласных:", SG_CNT)
 print("Гласных:", GL_CNT)
 print("A:", A_CNT)
@@ -49,3 +45,4 @@ print("E:", E_CNT)
 print("I:", I_CNT)
 print("O:", O_CNT)
 print("U:", U_CNT)
+

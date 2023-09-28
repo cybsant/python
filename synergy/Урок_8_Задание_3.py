@@ -16,7 +16,7 @@ left, right = 0, len(fishers) - 1
 boats = 0    
 
 while left <= right:
-    if (fishers[left] + fishers[right]) <= M: # Если влезают 2x рыбака
+    if (fishers[left] + fishers[right]) <= M: # Если влезают 2 рыбака
         left += 1
         right -= 1
     else: # Если нет, добавляем одного

@@ -25,10 +25,11 @@ class Calculator(Gtk.Window):
         display = Gtk.Entry()
         display.set_name("display")
         display.set_text("")
-        display.set_hexpand(True)
         display.set_editable(False)
-        display.set_alignment(1.0)
+        display.set_hexpand(True)
         display.set_halign(Gtk.Align.FILL)
+        display.set_alignment(1.0)
+
         display.modify_font(Pango.FontDescription("monospace 20"))
         display.set_margin_top(3)
         display.set_margin_bottom(3)

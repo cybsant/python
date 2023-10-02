@@ -70,18 +70,19 @@ label_style.configure("My.TLabel",
                     font="helvetica 14",
                     foreground="#004D40",
                     padding=4,
-                    background="#B2DFDB")
+                    background="#B2DFDB",
+                    border = True)
 
 # фрейм для строки с дисплеем и кнопкой "CE"
 frame = ttk.Frame(root)
 frame.grid(row=0, column=0, columnspan=4, sticky="nsew", padx=2, pady=2)
 
 # дисплей на левую сторону фрейма
-label = ttk.Label(frame, text='0', width=20, style="My.TLabel" )
+label = ttk.Label(frame, text='0', width=24, style="My.TLabel" )
 label.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 
 # кнопку "CE" на правую сторону фрейма
-button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=10)
+button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=8)
 button.grid(row=0, column=1, sticky="e", padx=2, pady=2)  # расстояние между кнопками
 
 for row in range(4):

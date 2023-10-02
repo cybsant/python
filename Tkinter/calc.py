@@ -44,7 +44,7 @@ def calculate():
 def click(text):
     global activeStr
     global stack
-    # Если текст кнопки 'CE', то очищаем activeStr и стэк, выводим '0' на дисплее 
+    # Если "CE" очищаем activeStr и стэк, выводим '0' на дисплее 
     if text == 'CE':
         stack.clear()
         activeStr = ''
@@ -92,18 +92,18 @@ frame = ttk.Frame(root)
 frame.grid(row=0, column=0, columnspan=4, sticky="nsew", padx=2, pady=2)
 
 # Создаем дисплей
-label = ttk.Label(frame, text='0', width=20, style="My.TLabel")
-label.grid(row=0, column=0, sticky="w", padx=2, pady=2)
+label = ttk.Label(frame, text='0', width=18, style="My.TLabel")
+label.grid(row=0, column=0, sticky="w", padx=3, pady=2)
 
 # Создаем кнопку "CE"
-button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=10)
-button.grid(row=0, column=1, sticky="e", padx=2, pady=2)
+button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=6)
+button.grid(row=0, column=1, sticky="e")
 
 # Создаем кнопки калькулятора
 for row in range(4):
     for col in range(4):
         button_text = buttons[row][col]
-        button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=3)
+        button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=2)
         button.grid(row=row + 1, column=col, sticky="nsew", padx=2, pady=2)
 
 root.mainloop()

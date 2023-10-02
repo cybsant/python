@@ -1,8 +1,7 @@
 """
 Demo of all widgets
 """
-
-import TKinterModernThemes as TKMT
+#import TKinterModernThemes as TKMT
 from functools import partial
 import tkinter as tk
 import json

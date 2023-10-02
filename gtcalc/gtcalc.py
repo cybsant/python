@@ -7,7 +7,7 @@ from decimal import Decimal
 class Calculator(Gtk.Window):
     def __init__(self):
         super(Calculator, self).__init__(title="Calculator")
-        self.set_default_size(360, 250)
+        self.set_default_size(360, 255)
         self.connect("destroy", Gtk.main_quit)
 
         self.active_str = ''

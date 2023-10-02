@@ -1,4 +1,4 @@
-### вобщем то решается в 3 строки:
+""" вобщем то решается в 3 строки: """
 # N = int(input())
 # line = [int(num) for num in input().split()]
 # print(len(set(line)))

@@ -5,10 +5,10 @@ from decimal import *
 root = Tk()
 root.title('Calculator')
 
-buttons = (('7', '8', '9', '/', '4'),
+buttons = (('1', '2', '3', '/', '4'),
            ('4', '5', '6', '*', '4'),
-           ('1', '2', '3', '-', '4'),
-           ('0', '.', '=', '+', '4')
+           ('7', '8', '9', '-', '4'),
+           ('.', '0', '=', '+', '4')
            )
 
 activeStr = ''
@@ -66,25 +66,34 @@ def click(text):
 ttk.Style().theme_use("clam")
 
 label_style = ttk.Style()
-label_style.configure("My.TLabel",          # имя стиля
-                    font="helvetica 14",    # шрифт
-                    foreground="#004D40",   # цвет текста
-                    padding=10,             # отступы
-                    background="#B2DFDB")   # фоновый цвет
+label_style.configure("My.TLabel",
+                    font="helvetica 14",
+                    foreground="#004D40",
+                    padding=4,
+                    background="#B2DFDB")
 
-label = ttk.Label(root, text='0', width=35, style="My.TLabel" )
-label.grid(row=0, column=0, columnspan=4, sticky="nsew")
+# Создайте фрейм для строки с дисплеем и кнопкой "CE"
+frame = ttk.Frame(root)
+frame.grid(row=0, column=0, columnspan=4, sticky="nsew", padx=2, pady=2)
 
-button = ttk.Button(root, text='CE', command=lambda text='CE': click(text))
-button.grid(row=1, column=3, sticky="nsew")
+# Добавьте дисплей на левую сторону фрейма
+label = ttk.Label(frame, text='0', width=20, style="My.TLabel" )
+label.grid(row=0, column=0, sticky="w", padx=2, pady=2)
+
+# Добавьте кнопку "CE" на правую сторону фрейма
+button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=10)
+button.grid(row=0, column=1, sticky="e", padx=2, pady=2)  # Добавлено расстояние между кнопками
+
 for row in range(4):
     for col in range(4):
-        button = ttk.Button(root, text=buttons[row][col],
-                command=lambda row=row, col=col: click(buttons[row][col]))
-        button.grid(row=row + 2, column=col, sticky="nsew")
+        button_text = buttons[row][col]
+        if button_text == '=':
+            button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=3)
+        else:
+            button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=3)
+        button.grid(row=row + 1, column=col, sticky="nsew", padx=2, pady=2)  # Добавлено расстояние между кнопками
 
-root.grid_rowconfigure(6, weight=1)
+root.grid_rowconfigure(5, weight=1)
 root.grid_columnconfigure(4, weight=1)
 
 root.mainloop()
-

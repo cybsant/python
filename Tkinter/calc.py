@@ -82,7 +82,7 @@ label.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 
 # кнопку "CE" на правую сторону фрейма
 button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=10)
-button.grid(row=0, column=1, sticky="e", padx=2, pady=2)  # Добавлено расстояние между кнопками
+button.grid(row=0, column=1, sticky="e", padx=2, pady=2)  # расстояние между кнопками
 
 for row in range(4):
     for col in range(4):
@@ -91,7 +91,7 @@ for row in range(4):
             button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=3)
         else:
             button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=3)
-        button.grid(row=row + 1, column=col, sticky="nsew", padx=2, pady=2)  # Добавлено расстояние между кнопками
+        button.grid(row=row + 1, column=col, sticky="nsew", padx=2, pady=2)  # расстояние между кнопками
 
 root.grid_rowconfigure(5, weight=1)
 root.grid_columnconfigure(4, weight=1)

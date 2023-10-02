@@ -20,13 +20,9 @@ stack = []
 def calculate():
     global stack
     global label
-    # Извлекает первый операнд из стэка
     operand1 = Decimal(stack.pop())
-    # Извлекает последнее значение в стэке как второй операнд
     operand2 = Decimal(stack.pop())
-    # Извлекает действие в стэке (должно быть +,-,* или /)
     operation = stack.pop()
-
     result = 0
 
     if operation == '+':

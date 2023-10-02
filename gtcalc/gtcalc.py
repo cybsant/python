@@ -79,10 +79,10 @@ class Calculator(Gtk.Window):
                 button_row += 1
 
     def calculate(self):
-        result = 0
+        operand1 = Decimal(self.stack.pop())
         operand2 = Decimal(self.stack.pop())
         operation = self.stack.pop()
-        operand1 = Decimal(self.stack.pop())
+        result = 0
 
         if operation == '+':
             result = operand1 + operand2

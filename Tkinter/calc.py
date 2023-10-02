@@ -72,15 +72,15 @@ label_style.configure("My.TLabel",
                     padding=4,
                     background="#B2DFDB")
 
-# Создайте фрейм для строки с дисплеем и кнопкой "CE"
+# фрейм для строки с дисплеем и кнопкой "CE"
 frame = ttk.Frame(root)
 frame.grid(row=0, column=0, columnspan=4, sticky="nsew", padx=2, pady=2)
 
-# Добавьте дисплей на левую сторону фрейма
+# дисплей на левую сторону фрейма
 label = ttk.Label(frame, text='0', width=20, style="My.TLabel" )
 label.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 
-# Добавьте кнопку "CE" на правую сторону фрейма
+# кнопку "CE" на правую сторону фрейма
 button = ttk.Button(frame, text='CE', command=lambda text='CE': click(text), width=10)
 button.grid(row=0, column=1, sticky="e", padx=2, pady=2)  # Добавлено расстояние между кнопками
 

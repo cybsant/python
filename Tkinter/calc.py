@@ -63,8 +63,8 @@ def click(text):
                 label.configure(text='0')
 
 # Interface
+#root.configure(bg="gray") # меняем цвет фона
 ttk.Style().theme_use("clam")
-
 label_style = ttk.Style()
 label_style.configure("My.TLabel",
                     font="helvetica 14",

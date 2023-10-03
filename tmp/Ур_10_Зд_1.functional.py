@@ -4,7 +4,6 @@ def add_pet():
     name = input("Кличка: ")
     age = int(input("Возраст: "))
     owner = input("Владелец: ")
-
     pets[name] = {
         "Вид" : subj,
         "Возраст" : age,
@@ -18,8 +17,8 @@ def display_pets():
     for name, pet_info in pets.items():
         print(f'Это {pet_info["Вид"]} по кличке "{name}". Возраст: {pet_info["Возраст"]}. Владелец: {pet_info["Владелец"]}')
 
-pets = {}
-
+""" НАЧАЛО """
+pets = {} 
 while True:
     action = input("Выбирите номер действия [ 1: Добавить пациента, 2: Показать список, 3: Выйти ]: ")
     if action == "1":

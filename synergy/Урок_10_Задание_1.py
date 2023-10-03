@@ -1,8 +1,5 @@
 """ Воод данных """
-subj = input("Вид: ")
-name = input("Кличка: ")
-age = int(input("Возраст: "))
-owner = input("Владелец: ")
+subj, name, age, owner = input("Вид: "), input("Кличка: "), int(input("Возраст: ")), input("Владелец: ")
 
 """ Формирование словаря """
 pets = {

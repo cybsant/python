@@ -1,27 +1,21 @@
-# Ввод данных
-M = int(input("Грузоподьемность лодки: "))
-N = int(input("Количество рыбаков: "))
-fishers = []
-for i in range(N):
-    fisher = int(input(f"Рыбак{i+1}: "))
-    fishers.append(fisher)
+subject = input("Вид: ")
+name = input("Кличка: ")
+age = int(input("Возраст: "))
+owner = input("Владелец: ")
 
-fishers.sort()  # Сортируем список рыбаков по весу
+pets = {
+    name : {
+        "Вид" : subject,
+        "Возраст" : age,
+        "Владелец" : owner
+    }
+}
 
-# Указатели на самого легкого и самого тяжелого рыбаков
-left, right = 0, len(fishers) - 1
-# признаюсь про указатели left, right - нагуглил,
-# а не взял из учебных материалов.
+# if age == 1:
+#     print(f"Возраст питомца: {age} год")
+# elif 2 <= age <= 4:
+#     print(f"Возраст питомца: {age} года")
+# else:
+#     print(f"Возраст питомца: {age} лет")
 
-# Считаем лодки
-boats = 0    
-
-while left <= right:
-    if (fishers[left] + fishers[right]) <= M: # Если влезают 2 рыбака
-        left += 1
-        right -= 1
-    else: # Если нет, добавляем одного
-        right -= 1
-    boats += 1
-
-print("Количество лодок:", boats)
+print(pets.values())

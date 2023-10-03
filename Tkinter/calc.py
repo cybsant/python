@@ -99,7 +99,10 @@ button.grid(row=0, column=1, sticky="e")
 for row in range(4):
     for col in range(4):
         button_text = buttons[row][col]
-        button = ttk.Button(root, text=button_text, command=lambda text=button_text: click(text), width=2)
+        button = ttk.Button(root, 
+                            text=button_text, 
+                            command=lambda text=button_text: click(text), 
+                            width=2)
         button.grid(row=row + 1, column=col, sticky="nsew", padx=2, pady=2)
 
 root.mainloop()

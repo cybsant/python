@@ -1,4 +1,4 @@
-def create():
+def create(pets):
     """ Воод данных """
     subj, name, age, owner = input("Вид: "), input("Кличка: "), int(input("Возраст: ")), input("Владелец: ")
     """ Формирование словаря """
@@ -10,11 +10,11 @@ def create():
     """ приставка к возрасту """
     pets[name]["Возраст"] = f'{pets[name]["Возраст"]} лет' if age > 4 else f'{pets[name]["Возраст"]} год' if age == 1 else f'{pets[name]["Возраст"]} года'
 
-def read():
+def read(pets):
     return pets
-def update():
+def update(pets):
     return pets
-def delete():
+def delete(pets):
     return pets
 
 """ НАЧАЛО """

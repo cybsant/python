@@ -2,7 +2,8 @@
 def add_pet():
     """ Воод данных """
     subj, name, age, owner = input("Вид: "), input("Кличка: "), int(input("Возраст: ")), input("Владелец: ")
-    """ Формирование словаря """    pets[name] = {
+    """ Формирование словаря """
+    pets[name] = {
         "Вид" : subj,
         "Возраст" : age,
         "Владелец" : owner

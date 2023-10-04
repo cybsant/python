@@ -1,7 +1,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Pango
-#from gi.repository import Gdk
+from gi.repository import Gdk
 from decimal import Decimal
 
 class Calculator(Gtk.Window):
@@ -79,9 +79,9 @@ class Calculator(Gtk.Window):
                 button_row += 1
 
     def calculate(self):
-        operand1 = Decimal(self.stack.pop())
         operand2 = Decimal(self.stack.pop())
         operation = self.stack.pop()
+        operand1 = Decimal(self.stack.pop())
         result = 0
 
         if operation == '+':

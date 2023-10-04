@@ -20,9 +20,9 @@ stack = []
 def calculate():
     global stack
     global label
-    operand1 = Decimal(stack.pop())
     operand2 = Decimal(stack.pop())
     operation = stack.pop()
+    operand1 = Decimal(stack.pop())
     result = 0
 
     if operation == '+':

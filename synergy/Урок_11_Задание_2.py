@@ -5,7 +5,7 @@ def clear():
     from os import system, name
     system('cls' if name == 'nt' else 'clear')
 
-def create(ID):
+def create():
     # Последний пациент в списке
     last = collections.deque(pets, maxlen=1)[0]
     # Ввод данных
@@ -63,8 +63,10 @@ while True:
     print('[1] Добавить пациента')
     print('[2] Редактировать пациента')
     print('[3] Показать пациента по номеру')
-    print('[4] Показать список пациентов')
-    print('[5] Выйти')
+    print('[4] Удалить пациента по номеру')
+    print('[5] Показать список пациентов')
+    print('[6] Выйти')
+
     action = input("Выбирите действие по номеру: ")
     if action == "1":
         create()
@@ -73,8 +75,10 @@ while True:
     elif action == "3":
         read()
     elif action == "4":
-        pets_list()
+        delete()
     elif action == "5":
+        pets_list()
+    elif action == "6":
         break
     else:
         clear(); print("!!! Некорректный выбор !!!"); sleep(1); clear()

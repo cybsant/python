@@ -10,20 +10,28 @@ def create(ID):
     last = collections.deque(pets, maxlen=1)[0]
     # Ввод данных
     subj, pet_name, age, owner = input("Вид: "), input("Кличка: "), int(input("Возраст: ")), input("Владелец: ")
-    # Шаблон БД =)
-    pets = {
-        ID:
-            {
-                pet_name: {
-                "Вид питомца": subj,
-                "Возраст питомца": age,
-                "Имя владельца": owner
-                },
+    pets[last] = {
+        pet_name: {
+            "Вид питомца": subj,
+            "Возраст питомца": age,
+            "Имя владельца": owner
             },
-    }
+        },
+    # Шаблон БД =)
+    #pets = {
+    #    ID:
+    #        {
+    #            pet_name: {
+    #            "Вид питомца": subj,
+    #            "Возраст питомца": age,
+    #            "Имя владельца": owner
+    #            },
+    #        },
+    #}
+    
 
-def read():
-    for pet_name, pet_info in pets.items():
+def read(ID):
+    for pet_name, pet_info in pets[ID].items():
         print(f'Это {pet_info["Вид"]} по кличке "{pet_name}". Возраст: {pet_info["Возраст"]}. Владелец: {pet_info["Владелец"]}')
 
 def update():
@@ -36,7 +44,12 @@ def get_pet(ID):
     return pets[ID] if ID in pets.keys() else False
 
 def get_suffix(age,pet_name): 
-    pets[pet_name]["Возраст"] = f'{pets[pet_name]["Возраст"]} лет' if age > 4 else f'{pets[pet_name]["Возраст"]} год' if age == 1 else f'{pets[pet_name]["Возраст"]} года'
+    if age == 1:
+        pets[pet_name]["Возраст"] = f'{pets[pet_name]["Возраст"]} год'
+    elif 2 <= age <= 4:
+        pets[pet_name]["Возраст"] = f'{pets[pet_name]["Возраст"]} года'
+    else:
+        pets[pet_name]["Возраст"] = f'{pets[pet_name]["Возраст"]} лет'
     return age
 
 def pets_list():

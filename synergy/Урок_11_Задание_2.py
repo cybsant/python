@@ -17,23 +17,21 @@ def create():
             "Имя владельца": owner
             },
         },
-    # Шаблон БД =)
-    #pets = {
-    #    ID:
-    #        {
-    #            pet_name: {
-    #            "Вид питомца": subj,
-    #            "Возраст питомца": age,
-    #            "Имя владельца": owner
-    #            },
-    #        },
-    #}
     
+# Шаблон БД ------------------------
+#
+# pets = {
+#    ID: {
+#        pet_name: {
+#           "Вид питомца": subj,
+#           "Возраст питомца": age,
+#           "Имя владельца": owner
+#        },
+#    },
+# }
 
 def read(ID):
-    for pet_name, pet_info in pets[ID].items():
-        print(f'Это {pet_info["Вид"]} по кличке "{pet_name}". Возраст: {pet_info["Возраст"]}. Владелец: {pet_info["Владелец"]}')
-
+    return
 def update():
     return
 def delete():
@@ -52,9 +50,11 @@ def get_suffix(age,pet_name):
         pets[pet_name]["Возраст"] = f'{pets[pet_name]["Возраст"]} лет'
     return age
 
-def pets_list():
+def pets_list(ID):
     # Эта функция будет создана для удобства отображения всего списка питомцев
     # Информацию по каждому питомцу можно вывести с помощью цикла for
+    for pet_name, pet_info in pets[ID].items():
+        print(f'Это {pet_info["Вид"]} по кличке "{pet_name}". Возраст: {pet_info["Возраст"]}. Владелец: {pet_info["Владелец"]}')
     return
 
 ### НАЧАЛО ###

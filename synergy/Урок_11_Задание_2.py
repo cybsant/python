@@ -1,7 +1,7 @@
 import collections
 from time import sleep
 
-def clear():  
+def clear():
     from os import system, name
     system('cls' if name == 'nt' else 'clear')
 
@@ -30,7 +30,7 @@ def create():
 #    },
 # }
 
-def read(ID):
+def read():
     return
 def update():
     return

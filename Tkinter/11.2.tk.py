@@ -5,17 +5,18 @@ import collections
 class PetApp:
     def __init__(self, master):
         self.master = master
-        self.master.title("Pet App")
+        self.master.title("VetPet")
         self.pets = collections.OrderedDict()
 
         # Создаем верхний и нижний фреймы
         top_frame = tk.Frame(master)
-        mid_frame = tk.Frame(master)
+        mod_frame = tk.Frame(master)
         bottom_frame = tk.Frame(master)
         top_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=False)
-        mid_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=False)
+        mod_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=False)
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
+        """ ВВОД """
         # Вид
         tk.Label(top_frame, text="[ Вид ]").grid(row=0, column=0, padx=5, sticky="e")
         self.subj_entry = tk.Entry(top_frame)
@@ -33,31 +34,8 @@ class PetApp:
         self.owner_entry = tk.Entry(top_frame)
         self.owner_entry.grid(row=3, column=1, ipady=3, sticky="ew")
         # Кнопка Добавить
-        tk.Button(top_frame, text="Добавить", command=self.create).grid(row=3, column=3, pady=0, ipady=0, sticky="ew")
-
-        # Выбор ID
-        tk.Label(mid_frame, text="[ Выбор ID ]").grid(row=0, column=0, padx=5, sticky="w")
-        self.pet_ID_entry = tk.Entry(mid_frame)
-        self.pet_ID_entry.grid(row=0, column=1, padx=0, ipady=3, sticky="ew")
-        # Кнопки Списка
-        tk.Button(mid_frame, text="Найти", command=self.read).grid(row=0, column=2, pady=0, ipady=0, sticky="ew")
-        tk.Button(mid_frame, text="Правка", command=self.update).grid(row=0, column=3, pady=0, ipady=0, sticky="ew")
-        tk.Button(mid_frame, text="Удалить", command=self.delete).grid(row=0, column=4, pady=0, ipady=0, sticky="ew")
-        
-        tk.Label(mid_frame, text="").grid(row=0, column=5, padx=40, sticky="w")
-        tk.Button(mid_frame, text="Вывести список", command=self.show_list).grid(row=0, column=6, pady=0, ipady=0, sticky="e")
-        
-        # Cписок питомцев и его скроллбар
-        self.text_area = tk.Text(bottom_frame)
-        self.text_area.grid(row=0, column=0, sticky="nsew")
-        self.scroll = tk.Scrollbar(bottom_frame)
-        self.scroll.grid(row=0, column=1, sticky="ns")
-
-        # Привязка скролл-бара к текстовому полю
-        self.text_area.config(yscrollcommand=self.scroll.set)
-        self.scroll.config(command=self.text_area.yview)
-
-        # Задаем фиксированный размер окна top_frame
+        tk.Button(top_frame, text="Добавить", command=self.create).grid(row=3, column=3, sticky="ew")
+        # Фиксированный размер top_frame
         top_frame.grid_rowconfigure(0, weight=1)
         top_frame.grid_rowconfigure(1, weight=1)
         top_frame.grid_rowconfigure(2, weight=1)
@@ -65,11 +43,33 @@ class PetApp:
         top_frame.grid_rowconfigure(4, weight=1)
         top_frame.grid_columnconfigure(1, weight=1)
 
-        # Задаем растяжение фрейма bottom_frame
-        bottom_frame.grid_rowconfigure(0, weight=1) # Растягиваем строку 0
-        bottom_frame.grid_columnconfigure(0, weight=1) # Растягиваем столбец 0
+        """ ПРАВКА """
+        # Выбор ID
+        tk.Label(mod_frame, text="[ Выбор ID ]").grid(row=0, column=0, padx=5, sticky="w")
+        self.pet_ID_entry = tk.Entry(mod_frame)
+        self.pet_ID_entry.grid(row=0, column=1, padx=0, ipady=3, sticky="ew")
+        # Кнопки правки
+        tk.Button(mod_frame, text="Найти", command=self.read).grid(row=0, column=2, pady=0, ipady=0, sticky="ew")
+        tk.Button(mod_frame, text="Правка", command=self.update).grid(row=0, column=3, pady=0, ipady=0, sticky="ew")
+        tk.Button(mod_frame, text="Удалить", command=self.delete).grid(row=0, column=4, pady=0, ipady=0, sticky="ew")
+        # ХЗ, пригодится
+        tk.Label(mod_frame, text="").grid(row=0, column=5, padx=40, sticky="w")
+        # Кнопка списка
+        tk.Button(mod_frame, text="Вывести список", command=self.show_list).grid(row=0, column=6, pady=0, ipady=0, sticky="e")
+        
+        """ СПИСОК """
+        # Cписок питомцев и его скроллбар
+        self.text_area = tk.Text(bottom_frame)
+        self.text_area.grid(row=0, column=0, sticky="nsew")
+        self.scroll = tk.Scrollbar(bottom_frame)
+        self.scroll.grid(row=0, column=1, sticky="ns")
+        # Привязка скролл-бара к текстовому полю
+        self.text_area.config(yscrollcommand=self.scroll.set)
+        self.scroll.config(command=self.text_area.yview)
+        # Растяжение фрейма bottom_frame
+        bottom_frame.grid_rowconfigure(0, weight=1)
+        bottom_frame.grid_columnconfigure(0, weight=1)
 
-    # Ваш код для функций create, delete, read, update и show_list сохраняется без изменений.
     def show_list(self):
         self.text_area.delete(1.0, tk.END)
         for ID, pet_info in self.pets.items():

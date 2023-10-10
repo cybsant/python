@@ -1,8 +1,11 @@
+#import collections
 from time import sleep
 #from os import system, name
 
 def create():
     print('---[ Добавить ]---------------------')
+    #ID = collections.deque(pets, maxlen=1)[0]
+    # Мой вариант оптимальнее
     ID = max(pets.keys(), default=0) + 1  
     add_pet(ID)
 
@@ -48,6 +51,7 @@ def add_pet(ID):
         except ValueError:
             err("Пожалуйста, введите число") 
     # Добавление приставки к возрасту
+    # На мой взгляд функция get_suffix(age) - излишество
     age = f'{age} лет' if age > 4 else f'{age} год' if age == 1 else f'{age} года'
     owner = input("Владелец: ")
     pets[ID] = {
@@ -76,18 +80,18 @@ while True:
     print('[5] Показать список пациентов')
     print('[6] Выйти')
     print('------------------------------------')
-    action = input("Выбирите действие по номеру: ")
-    if action == "1":
+    command = input("Выбирите действие по номеру: ")
+    if command == "1":
         create()
-    elif action == "2":
+    elif command == "2":
         read()
-    elif action == "3":
+    elif command == "3":
         update()
-    elif action == "4":
+    elif command == "4":
         delete()
-    elif action == "5":
+    elif command == "5":
         pets_list()
-    elif action == "6":
+    elif command == "6":
         break
     else:
         err("Некорректный выбор")

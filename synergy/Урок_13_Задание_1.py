@@ -6,7 +6,7 @@ def gen_matrix(rows, cols):
     for i in range(int(rows)):
         row = []
         for j in range(int(cols)):
-            row.append(random.randint(1, 200))  # Генерируем случайное число от 1 до 200
+            row.append(random.randint(1, 200))
         matrix.append(row)
     return matrix
 
@@ -31,10 +31,10 @@ matrix3 = sum_matrix(matrix1, matrix2)
 # Выводим результат  красиво
 print("Матрица №1:") #, matrix1)
 for row in matrix1:
-    print(row)
+    print(*row)
 print("Матрица №2:") #, matrix2)
 for row in matrix2:
-    print(row)
+    print(*row)
 print("Сумма матриц:") #, matrix3)
 for row in matrix3:
-    print(row)
+    print(*row)

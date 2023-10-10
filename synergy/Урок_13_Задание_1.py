@@ -28,13 +28,13 @@ matrix1 = gen_matrix(rows, cols)
 matrix2 = gen_matrix(rows, cols)
 matrix3 = sum_matrix(matrix1, matrix2)
 
-# Выводим результат красиво
-print("Матрица №1:")
+# Выводим результат  красиво
+print("Матрица №1:") #, matrix1)
 for row in matrix1:
     print(row)
-print("Матрица №2:")
+print("Матрица №2:") #, matrix2)
 for row in matrix2:
     print(row)
-print("Сумма матриц:")    
+print("Сумма матриц:") #, matrix3)
 for row in matrix3:
     print(row)

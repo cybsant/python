@@ -1,13 +1,18 @@
-from time import sleep
+class Transport:
+    def __init__(self, name, max_speed, mileage):
+        self.name = name
+        self.max_speed = max_speed
+        self.mileage = mileage
 
-matrix1 =  [[1,2,3], 
-            [4,5,6], 
-            [7,8,9]] 
-   
-matrix2 =  [[9,8,7], 
-            [6,5,4], 
-            [3,2,1]] 
+    def seating_capacity(self, capacity):
+        return f"Вместимость одного автобуса {self.name} {capacity} пассажиров"
 
-row3 = [[matrix1[i][j] + matrix2[i][j] for j in range(len(matrix1[0]))] for i in range(len(matrix1))]
-for r in row3:
-    print(r); sleep(1)
+class Autobus(Transport):
+    def seating_capacity(self, capacity=50):
+        return f"Вместимость одного автобуса {self.name} {capacity} пассажиров"
+
+# Создаем объект класса autobus
+autobus = Autobus("Renault Logan", 180, 12)
+
+# Вызываем метод seating_capacity
+print(autobus.seating_capacity())

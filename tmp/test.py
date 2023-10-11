@@ -1,9 +1,11 @@
-def print_list(my_list):
-    if len(my_list) == 0:
-        print("Конец списка")
-    else:
-        print(my_list[0])
-        print_list(my_list[1:])
+class Transport:
+    def __init__(self, name, max_speed, mileage):
+        self.name = name
+        self.max_speed = max_speed
+        self.mileage = mileage
 
-my_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-print_list(my_list)
+# Создаем объект класса Transport
+autobus = Transport('Renault Logan', 180, 12)
+
+# Вывод
+print(f'Название автомобиля: {autobus.name}, Скорость: {autobus.max_speed}. Пробег: {autobus.mileage}.')

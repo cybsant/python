@@ -20,7 +20,7 @@ class PetApp(QWidget):
         self.subj_entry = QLineEdit(self)
         self.pet_name_entry = QLineEdit(self)
         self.age_entry = QLineEdit(self)
-        self.age_entry.setValidator(QIntValidator(0, 100))  # выбран ограничитель для числовой ввода возраста
+        self.age_entry.setValidator(QIntValidator(0, 100))  # выбран ограничитель для ввода возраста
         self.owner_entry = QLineEdit(self)
 
         self.top_layout.addWidget(QLabel("[ Вид ]"), 0, 0)

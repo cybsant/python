@@ -109,6 +109,7 @@ class PetApp:
         else:
             messagebox.showerror("Ошибка!", "Питомец с таким ID не найден")
 
+# ---[ S T A R T ]---
 root = tk.Tk()
 root.geometry("720x600")
 app = PetApp(root)

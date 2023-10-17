@@ -120,13 +120,8 @@ class CalculatorUI:
         result = self.calculator.clear()
         self.label.configure(text=result)
 
-
-def main():
-    root = Tk()
-    calculator = Calculator()
-    CalculatorUI(root, calculator)
-    root.mainloop()
-
-
-if __name__ == "__main__":
-    main()
+# ---[ S T A R T ]---
+root = Tk()
+calculator = Calculator()
+CalculatorUI(root, calculator)
+root.mainloop()

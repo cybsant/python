@@ -9,7 +9,7 @@ def randcell(w, h):
     th = rand(0, h-1)
     return (th, tw)
 
-# 0 - ᐃ | 1 - ᐅ | 2 - ᐁ | 3 - ᐊ
+""" 0 - ᐃ | 1 - ᐅ | 2 - ᐁ | 3 - ᐊ """
 def randcell2(x, y):
     moves = [(-1, 0), (0, 1), (1, 0), (0, -1)]
     t = rand(0, 3)

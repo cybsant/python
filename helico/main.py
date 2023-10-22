@@ -1,24 +1,50 @@
 # ⬛ 🌲 🌊 🏥 🏦 💭 ⚡ 🔥 🚁 💜 💧 💲
 
-from map import Map
-from time import sleep
 from os import system, name
+from time import sleep
+from map import Map
 
-TICK_SLEEP = 0.1
+TICK_SLEEP = 0.06
+TREE_UPD = 25
+FIRE_UPD = 50
+
+# !--------------------------
+# TODO(?) Menu > Select Theme
+
+# !---------------------------------
+# TODO(?) HowTo set background color
+
+#? Sml
+#MAP_W, MAP_H = 16, 8
+#? Med
+##MAP_W, MAP_H = 24, 16
+MAP_W, MAP_H = 12, 24
+#? Big
+#MAP_W, MAP_H = 32, 24
+#? Gig
+#MAP_W, MAP_H = 48, 32
 
 
-tmp = Map(20, 10)
-tmp.gen_forest(3, 10)
-tmp.gen_river(10)
-tmp.gen_water(10)
-tmp.draw_map()
+field = Map(MAP_W, MAP_H)
+field.gen_forest(3, 10)
+field.gen_river(10)
+field.gen_river(9)
+field.gen_water(7)
+field.gen_water(5)
+#field.gen_water(10)
+#field.gen_water(10)
+field.draw_map()
 
 
 tick = 1
 
 while True:
     system('cls' if name == 'nt' else 'clear')
-    print('TICK', tick)
-    tmp.draw_map()
+    #print('TICK', tick)
+    field.draw_map()
     tick += 1
     sleep(TICK_SLEEP)
+    if (tick % TREE_UPD == 0):
+        field.add_tree()
+    if (tick % FIRE_UPD == 0):
+        field .update_fires()

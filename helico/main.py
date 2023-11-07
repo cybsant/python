@@ -1,5 +1,3 @@
-# ⬛ 🌲 🌊 🏥 🏦 💭 ⚡ 🔥 🚁 💜 💧 💲
-
 from os import system, name
 from time import sleep
 from map import Map
@@ -24,7 +22,6 @@ MAP_W, MAP_H = 12, 24
 #? Gig
 #MAP_W, MAP_H = 48, 32
 
-
 field = Map(MAP_W, MAP_H)
 field.gen_forest(3, 10)
 field.gen_river(10)
@@ -35,12 +32,11 @@ field.gen_water(5)
 #field.gen_water(10)
 field.draw_map()
 
-
 tick = 1
 
 while True:
     system('cls' if name == 'nt' else 'clear')
-    #print('TICK', tick)
+    field.draw_info()
     field.draw_map()
     tick += 1
     sleep(TICK_SLEEP)

@@ -2,12 +2,11 @@ from utils import randbool
 from utils import randcell
 from utils import randcell2
 
-#CELL_TYPES = ['🟫', '🌵', '⛲', '💊', '🛠', '🔥'] #* DESERT
-#CELL_TYPES = ['🟩', '🌴', '🟦', '⛑', '🛠', '🔥'] #* TROPICA
-#CELL_TYPES = ['⬜', '🎄', '🌊', '🏥', '🏦', '🔥'] #* WINTER
-
-#CELL_TYPES = ['⬛', '🌲', '🌊', '🏥', '🏦', '🔥'] #* DEFAULT
-CELL_TYPES = ['⚫', '🌳', '🌀', '🍄', '✨', '🔥'] #* FANTASY
+#CELL_TYPES = ['🟫', '🌵', '⛲', '💊', '🛠', '🔥'] # * DESERT
+#CELL_TYPES = ['🟩', '🌴', '🟦', '⛑', '🛠', '🔥'] # * TROPICA
+#CELL_TYPES = ['⬜', '🎄', '🌊', '🏥', '🏦', '🔥'] # * WINTER
+#CELL_TYPES = ['⬛', '🌲', '🌊', '🏥', '🏦', '🔥'] # * DEFAUT
+CELL_TYPES = ['⚫', '🌳', '🌀', '🍄', '✨', '🔥']  #>* FANTASY
 
 class Map:
 
@@ -21,6 +20,20 @@ class Map:
             return False
         return True
 
+    def draw_info(self):
+        #! INFO MAKET !
+        print(f'╭{"─" * (self.w)*2}╮')
+        #print(f' ╭{"─" * (self.w*2-2)}╮')
+        #print("╭│ SAVE [🌴🌳🌲] FOREST │╮")
+        #print(f'│╰{"─" * (((self.w)*2)-2)}╯│')
+        print("│", end="")
+        print(f'[L:{"💜" * (self.w//2-2)}][T:        ]', end="")
+        print("│")
+        print("│", end="")
+        print(f'[W:{"💧" * (self.w//2-3)}  ][M:{"💲" * (self.w//2-3)}  ]', end="")
+        print("│")
+        print(f'╰{"─" * (self.w)*2}╯')
+
     def draw_map(self):
         print(f'╭{"─" * (self.w)*2}╮')
         for row in self.cells:
@@ -30,6 +43,7 @@ class Map:
                     print(CELL_TYPES[cell], end="")
             print("│")
         print(f'╰{"─" * (self.w)*2}╯')
+        #print(f' ╰{"─" * (self.w*2-2)}╯ ', end="")
 
     def gen_forest(self, r, mxr):
         for ri in range(self.h):
@@ -46,10 +60,10 @@ class Map:
             rx2, ry2 = rc2[0], rc2[1]
             if (self.check_bounds(rx2, ry2)): # TODO(?) and (randbool(l, l * 2)):
                 #* Проверяем движение только вправо и вниз или только влево и вверх
-                #! if ((rx2 == rx + 1) and (ry2 == ry)) or ((rx2 == rx) and (ry2 == ry + 1)):
-                    self.cells[rx2][ry2] = 2
-                    rx, ry = rx2, ry2
-                    l -= 1
+            #! if ((rx2 == rx+1) and (ry2 == ry)) or ((rx2 == rx) and (ry2 == ry+1)):
+                self.cells[rx2][ry2] = 2
+                rx, ry = rx2, ry2
+                l -= 1
 
     def gen_water(self, l):
         rc = randcell(self.w, self.h)
@@ -83,4 +97,3 @@ class Map:
                     self.cells[ri][ci] = 0
         for i in range(5):
             self.add_fire()
-

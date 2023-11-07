@@ -49,14 +49,14 @@ class PetApp:
         self.pet_ID_entry = tk.Entry(mod_frame)
         self.pet_ID_entry.grid(row=0, column=1, padx=0, ipady=3, sticky="ew")
         # Кнопки правки
-        tk.Button(mod_frame, text="Найти", command=self.read).grid(row=0, column=2, pady=0, ipady=0, sticky="ew")
-        tk.Button(mod_frame, text="Правка", command=self.update).grid(row=0, column=3, pady=0, ipady=0, sticky="ew")
-        tk.Button(mod_frame, text="Удалить", command=self.delete).grid(row=0, column=4, pady=0, ipady=0, sticky="ew")
+        tk.Button(mod_frame, text="Найти", command=self.read).grid(row=0, column=2, sticky="ew")
+        tk.Button(mod_frame, text="Правка", command=self.update).grid(row=0, column=3, sticky="ew")
+        tk.Button(mod_frame, text="Удалить", command=self.delete).grid(row=0, column=4, sticky="ew")
         # ХЗ, пригодится
         tk.Label(mod_frame, text="").grid(row=0, column=5, padx=40, sticky="w")
         # Кнопка списка
-        tk.Button(mod_frame, text="Вывести список", command=self.show_list).grid(row=0, column=6, pady=0, ipady=0, sticky="e")
-        
+        tk.Button(mod_frame, text="Список", command=self.show_list).grid(row=0, column=6, sticky="e")
+
         """ СПИСОК """
         # Cписок питомцев и его скроллбар
         self.text_area = tk.Text(bottom_frame)
@@ -73,14 +73,18 @@ class PetApp:
     def show_list(self):
         self.text_area.delete(1.0, tk.END)
         for ID, pet_info in self.pets.items():
-            self.text_area.insert(tk.END, f' {ID}. {pet_info["Вид питомца"]} по кличке {pet_info["pet_name"]}. Возраст: {pet_info["Возраст питомца"]}. Владелец: {pet_info["Имя владельца"]}\n')
+            self.text_area.insert(tk.END, f'{ID}. {pet_info["Вид питомца"]} \
+                по кличке {pet_info["pet_name"]}. \
+                Возраст: {pet_info["Возраст питомца"]}.\
+                Владелец: {pet_info["Имя владельца"]}\n'
+            )
 
     def create(self):
         # обработка возраста
         try:
             age = int(self.age_entry.get())
         except ValueError:
-            messagebox.showerror("Ошибка", "Пожалуйста, введите целочисленное значение для возраста.")
+            messagebox.showerror("Ошибка", "Пожалуйста, введите число для возраста.")
             return
         # создание записи о питомце
         ID = max(self.pets.keys(), default=0) + 1
@@ -91,7 +95,7 @@ class PetApp:
             "Имя владельца": self.owner_entry.get()
         }
 
-    def delete(self):  
+    def delete(self):
         ID = self.pet_ID_entry.get()
         if ID in self.pets:
             del self.pets[ID]
@@ -104,7 +108,11 @@ class PetApp:
         if ID in self.pets:
             self.text_area.delete(1.0, tk.END)
             pet_info = self.pets[ID]
-            self.text_area.insert(tk.END, f' {ID}. {pet_info["Вид питомца"]} по кличке {pet_info["pet_name"]}. Возраст: {pet_info["Возраст питомца"]}. Владелец: {pet_info["Имя владельца"]}\n')
+            self.text_area.insert(tk.END, f' {ID}. {pet_info["Вид питомца"]} \
+                по кличке {pet_info["pet_name"]}. \
+                Возраст: {pet_info["Возраст питомца"]}. \
+                Владелец: {pet_info["Имя владельца"]}\n'
+            )
         else:
             messagebox.showerror("Ошибка!", "Питомец с таким ID не найден")
 

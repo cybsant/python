@@ -1,9 +1,10 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 from decimal import Decimal
 
-class Calculator:
+class Calculator(ttk.Frame):
     def __init__(self):
+        ttk.Frame.__init__(self)
         self.active_str = ''
         self.stack = []
 
@@ -121,7 +122,7 @@ class CalculatorUI:
         self.label.configure(text=result)
 
 # ---[ S T A R T ]---
-root = Tk()
+#root = ()
 calculator = Calculator()
 CalculatorUI(root, calculator)
 root.mainloop()

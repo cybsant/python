@@ -1,108 +1,183 @@
-""" Solitaire clone. """
-import arcade
+import curses
+import random
 
-# Screen title and size
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 768
-SCREEN_TITLE = "Drag and Drop Cards"
+# Размер сетки
+GRID_SIZE = 4
 
-# Constants for sizing
-CARD_SCALE = 1.0
+# Неоновые цвета
+COLORS = {
+    0: curses.COLOR_BLACK,
+    2: curses.COLOR_GREEN,
+    4: curses.COLOR_YELLOW,
+    8: curses.COLOR_CYAN,
+    16: curses.COLOR_MAGENTA,
+    32: curses.COLOR_RED,
+    64: curses.COLOR_BLUE
+}
 
-# How big are the cards?
-CARD_WIDTH = 140 * CARD_SCALE
-CARD_HEIGHT = 190 * CARD_SCALE
+# Функция создания окна с текстом
+def print_box(window, row, col, text):
+    window.addstr(row, col, text)
+    window.refresh()
 
-# How big is the mat we'll place the card on?
-MAT_PERCENT_OVERSIZE = 1.25
-MAT_HEIGHT = int(CARD_HEIGHT * MAT_PERCENT_OVERSIZE)
-MAT_WIDTH = int(CARD_WIDTH * MAT_PERCENT_OVERSIZE)
+# Функция рисования сетки
+def draw_grid(window, grid):
+    window.clear()
+    box_width = 9
+    box_height = 5
 
-# How much space do we leave as a gap between the mats?
-# Done as a percent of the mat size.
-VERTICAL_MARGIN_PERCENT = 0.10
-HORIZONTAL_MARGIN_PERCENT = 0.10
+    # Рисуем вертикальные линии
+    for y in range(0, GRID_SIZE*box_height, box_height):
+        for x in range(0, GRID_SIZE*box_width+1):
+            window.addstr(y, x, '|')
 
-# The Y of the bottom row (2 piles)
-BOTTOM_Y = MAT_HEIGHT / 2 + MAT_HEIGHT * VERTICAL_MARGIN_PERCENT
+    # Рисуем горизонтальные линии
+    for x in range(0, GRID_SIZE*box_width, box_width):
+        for y in range(0, GRID_SIZE*box_height+1):
+            window.addstr(y, x, '-')
 
-# The X of where to start putting things on the left side
-START_X = MAT_WIDTH / 2 + MAT_WIDTH * HORIZONTAL_MARGIN_PERCENT
+    # Рисуем значения в клетках
+    for i in range(GRID_SIZE):
+        for j in range(GRID_SIZE):
+            value = grid[i][j]
+            color = COLORS.get(value, curses.COLOR_WHITE)
+            window.attron(curses.color_pair(color))
+            window.addstr(i*box_height+2, j*box_width+2, str(value).center(5))
+            window.attroff(curses.color_pair(color))
 
-# Card constants
-CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-CARD_SUITS = ["Clubs", "Hearts", "Spades", "Diamonds"]
+    window.refresh()
 
+# Функция инициализации пустой сетки
+def initialize_grid():
+    return [[0] * GRID_SIZE for _ in range(GRID_SIZE)]
 
-class Card(arcade.Sprite):
-    """ Card sprite """
+# Функция добавления новой плитки на сетку
+def add_new_tile(grid):
+    empty_cells = []
+    for i in range(GRID_SIZE):
+        for j in range(GRID_SIZE):
+            if grid[i][j] == 0:
+                empty_cells.append((i, j))
+    if empty_cells:
+        i, j = random.choice(empty_cells)
+        grid[i][j] = random.choice([2, 4])
+    return grid
 
-    def __init__(self, suit, value, scale=1):
-        """ Card constructor """
+# Функция поворота сетки на 90 градусов по часовой стрелке
+def rotate_grid(grid):
+    return [list(row) for row in zip(*grid[::-1])]
 
-        # Attributes for suit and value
-        self.suit = suit
-        self.value = value
+# Функция сдвига значений в сетке влево
+def slide_left(grid):
+    new_grid = []
+    for row in grid:
+        new_row = []
+        for value in row:
+            if value != 0:
+                new_row.append(value)
+        new_row += [0] * (GRID_SIZE - len(new_row))
+        new_grid.append(new_row)
+    return new_grid
 
-        # Image to use for the sprite when face up
-        self.image_file_name = f":resources:images/cards/card{self.suit}{self.value}.png"
+# Функция объединения соседних значений в сетке
+def merge_values(grid):
+    for row in grid:
+        for i in range(GRID_SIZE - 1):
+            if row[i] == row[i+1] and row[i] != 0:
+                row[i] *= 2
+                row[i+1] = 0
+    return grid
 
-        # Call the parent
-        super().__init__(self.image_file_name, scale, hit_box_algorithm="None")
+# Функция проверки возможности сдвига в заданном направлении
+def can_slide(grid, direction):
+    rotated_grid = grid
+    if direction == 'up':
+        rotated_grid = rotate_grid(rotated_grid)
+    elif direction == 'right':
+        rotated_grid = rotate_grid(rotate_grid(rotated_grid))
+    elif direction == 'down':
+        rotated_grid = rotate_grid(rotate_grid(rotate_grid(rotated_grid)))
+    for row in rotated_grid:
+        for i in range(GRID_SIZE - 1):
+            if row[i] == 0 and row[i+1] != 0:
+                return True
+            if row[i] != 0 and row[i] == row[i+1]:
+                return True
+    return False
 
+# Функция сдвига значений в сетке в указанном направлении
+def slide(grid, direction):
+    new_grid = grid
+    if direction == 'up':
+        new_grid = rotate_grid(grid)
+    elif direction == 'right':
+        new_grid = rotate_grid(rotate_grid(grid))
+    elif direction == 'down':
+        new_grid = rotate_grid(rotate_grid(rotate_grid(grid)))
+    new_grid = slide_left(new_grid)
+    new_grid = merge_values(new_grid)
+    new_grid = slide_left(new_grid)
+    if direction == 'up':
+        new_grid = rotate_grid(new_grid)
+    elif direction == 'right':
+        new_grid = rotate_grid(rotate_grid(new_grid))
+    elif direction == 'down':
+        new_grid = rotate_grid(rotate_grid(rotate_grid(new_grid)))
+    return new_grid
 
-class MyGame(arcade.Window):
-    """ Main application class. """
+# Функция проверки окончания игры
+def is_game_over(grid):
+    directions = ['up', 'right', 'down', 'left']
+    for direction in directions:
+        if can_slide(grid, direction):
+            return False
+    return True
 
-    def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+# Инициализация curses и создание окна
+stdscr = curses.initscr()
+curses.start_color()
+curses.use_default_colors()
+for i in range(0, curses.COLORS):
+    curses.init_pair(i, i, -1)
+stdscr.keypad(True)
+curses.noecho()
+curses.curs_set(0)
+stdscr.nodelay(True)
 
-        # Sprite list with all the cards, no matter what pile they are in.
-        self.card_list = None
+# Инициализация сетки и добавление первых двух плиток
+grid = initialize_grid()
+grid = add_new_tile(grid)
+grid = add_new_tile(grid)
 
-        arcade.set_background_color(arcade.color.AMAZON)
+# Основной цикл игры
+while True:
+    stdscr.clear()
+    draw_grid(stdscr, grid)
+    if is_game_over(grid):
+        print_box(stdscr, 10, 10, "Game Over")
+        break
+    key = stdscr.getch()
+    if key == ord('q'):
+        break
+    elif key == curses.KEY_UP:
+        if can_slide(grid, 'up'):
+            grid = slide(grid, 'up')
+            grid = add_new_tile(grid)
+    elif key == curses.KEY_RIGHT:
+        if can_slide(grid, 'right'):
+            grid = slide(grid, 'right')
+            grid = add_new_tile(grid)
+    elif key == curses.KEY_DOWN:
+        if can_slide(grid, 'down'):
+            grid = slide(grid, 'down')
+            grid = add_new_tile(grid)
+    elif key == curses.KEY_LEFT:
+        if can_slide(grid, 'left'):
+            grid = slide(grid, 'left')
+            grid = add_new_tile(grid)
 
-    def setup(self):
-        """ Set up the game here. Call this function to restart the game. """
-
-        # Sprite list with all the cards, no matter what pile they are in.
-        self.card_list = arcade.SpriteList()
-
-        # Create every card
-        for card_suit in CARD_SUITS:
-            for card_value in CARD_VALUES:
-                card = Card(card_suit, card_value, CARD_SCALE)
-                card.position = START_X, BOTTOM_Y
-                self.card_list.append(card)
-
-    def on_draw(self):
-        """ Render the screen. """
-        # Clear the screen
-        self.clear()
-
-        # Draw the cards
-        self.card_list.draw()
-
-    def on_mouse_press(self, x, y, button, key_modifiers):
-        """ Called when the user presses a mouse button. """
-        pass
-
-    def on_mouse_release(self, x: float, y: float, button: int,
-                         modifiers: int):
-        """ Called when the user presses a mouse button. """
-        pass
-
-    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
-        """ User moves mouse """
-        pass
-
-
-def main():
-    """ Main function """
-    window = MyGame()
-    window.setup()
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
+# Завершение curses
+curses.nocbreak()
+stdscr.keypad(False)
+curses.echo()
+curses.endwin()

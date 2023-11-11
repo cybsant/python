@@ -20,30 +20,29 @@ class Map:
             return False
         return True
 
-    def draw_info(self):
-        #! INFO MAKET !
-        print(f'╭{"─" * (self.w)*2}╮')
-        #print(f' ╭{"─" * (self.w*2-2)}╮')
-        #print("╭│ SAVE [🌴🌳🌲] FOREST │╮")
-        #print(f'│╰{"─" * (((self.w)*2)-2)}╯│')
-        print("│", end="")
-        print(f'[L:{"💜" * (self.w//2-2)}][T:        ]', end="")
-        print("│")
-        print("│", end="")
-        print(f'[W:{"💧" * (self.w//2-3)}  ][M:{"💲" * (self.w//2-3)}  ]', end="")
-        print("│")
-        print(f'╰{"─" * (self.w)*2}╯')
+#    def draw_info(self):
+#        #! INFO MAKET !
+#        print(f'╭{"─" * (self.w)*2}╮')
+#        print("│", end="")
+#        print(f'[L:{"💜" * (self.w//2-2)}][T:        ]', end="")
+#        print("│")
+#        print("│", end="")
+#        print(f'[W:{"💧" * (self.w//2-3)}  ][M:{"💲" * (self.w//2-3)}  ]', end="")
+#        print("│")
+#        print(f'╰{"─" * (self.w)*2}╯')
 
-    def draw_map(self):
+    def draw_map(self, helico):
         print(f'╭{"─" * (self.w)*2}╮')
-        for row in self.cells:
+        for ri in range(self.h):
             print("│", end="")
-            for cell in row:
-                if 0 <= cell < len(CELL_TYPES):
+            for ci in range(self.w):
+                cell = self.cells[ri][ci]
+                if (helico.x == ri and helico.y == ci):
+                    print("🚁", end="")
+                elif 0 <= cell < len(CELL_TYPES):
                     print(CELL_TYPES[cell], end="")
             print("│")
         print(f'╰{"─" * (self.w)*2}╯')
-        #print(f' ╰{"─" * (self.w*2-2)}╯ ', end="")
 
     def gen_forest(self, r, mxr):
         for ri in range(self.h):
@@ -58,9 +57,7 @@ class Map:
         while l > 0:
             rc2 = randcell2(rx, ry)
             rx2, ry2 = rc2[0], rc2[1]
-            if (self.check_bounds(rx2, ry2)): # TODO(?) and (randbool(l, l * 2)):
-                #* Проверяем движение только вправо и вниз или только влево и вверх
-            #! if ((rx2 == rx+1) and (ry2 == ry)) or ((rx2 == rx) and (ry2 == ry+1)):
+            if (self.check_bounds(rx2, ry2)): #? and (randbool(l, l * 2)):
                 self.cells[rx2][ry2] = 2
                 rx, ry = rx2, ry2
                 l -= 1
@@ -72,7 +69,7 @@ class Map:
         while l > 0:
             rc2 = randcell2(rx, ry)
             rx2, ry2 = rc2[0], rc2[1]
-            if (self.check_bounds(rx2, ry2)): # TODO(?) and (randbool(l, l * 6)):
+            if (self.check_bounds(rx2, ry2)): #? and (randbool(l, l * 6)):
                 self.cells[rx2][ry2] = 2
                 rx, ry = rx2, ry2
                 l -= 1
@@ -80,7 +77,7 @@ class Map:
     def add_tree(self):
         c = randcell(self.w, self.h)
         cx, cy = c[0], c[1]
-        if (self.check_bounds(cx, cy) and self.cells[cx][cy] == 0):
+        if (self.cells[cx][cy] == 0):
             self.cells[cx][cy] = 1
 
     def add_fire(self):

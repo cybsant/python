@@ -11,27 +11,26 @@ print(arr)
 print("------")
 
 #############################
-### Bubble sort algorithm
+### Bubble sort
+# for i in range(n):
+#     for j in range(n-1):
+#         if arr[j] > arr[j+1]:
+#             arr[j], arr[j+1] = arr[j+1], arr[j]
 
-# Вот что пишет лектор
-for i in range(n):
-    for j in range(n-1):
-        left = arr[j]
-        right = arr[j+1]
-        if left > right:
-            temp = arr[j]
-            arr[j] = arr[j+1]
-            arr[j+1] = temp
-# Вот что пишу я
-for i in range(n):
-    for j in range(n-1):
-        if arr[j] > arr[j+1]:
-            arr[j], arr[j+1] = arr[j+1], arr[j]
+### Shuffle sort
+left_ind = 0
+right_ind = n - 1
+while left_ind <= right_ind:
+    for i in range(left_ind, right_ind, +1):
+        if arr[i] < arr[i + 1]:
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+    right_ind -= 1
+    for i in range(right_ind, left_ind, -1):
+        if arr[i-1] < arr[i]:
+            arr[i], arr[i - 1] = arr[i - 1], arr[i]
+    left_ind += 1
 
-# Плохочитаемо?
-# Так не принято в питоне?
-# Может я не понимаю пока, чем это черевато?
-# Почему лектор использует более громоздкий вариант?
+#############################
 
 print("Sorted:")
 print(arr)

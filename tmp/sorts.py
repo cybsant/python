@@ -1,6 +1,6 @@
 import random
 
-n = 500
+n = 5
 arr = list()
 for i in range(n):
     number = random.randint(1, 100)
@@ -11,6 +11,7 @@ print(arr)
 print("------")
 
 #############################
+
 ### Bubble sort
 # for i in range(n):
 #     for j in range(n-1):
@@ -18,17 +19,24 @@ print("------")
 #             arr[j], arr[j+1] = arr[j+1], arr[j]
 
 ### Shuffle sort
-left_ind = 0
-right_ind = n - 1
-while left_ind <= right_ind:
-    for i in range(left_ind, right_ind, +1):
+l_ind = 0
+r_ind = n - 1
+is_srt = True
+while l_ind <= r_ind:
+    for i in range(l_ind, r_ind, +1):
         if arr[i] < arr[i + 1]:
+            is_srt = False
             arr[i], arr[i + 1] = arr[i + 1], arr[i]
-    right_ind -= 1
-    for i in range(right_ind, left_ind, -1):
+    r_ind -= 1
+    for i in range(r_ind, l_ind, -1):
         if arr[i-1] < arr[i]:
+            is_srt = False
             arr[i], arr[i - 1] = arr[i - 1], arr[i]
-    left_ind += 1
+    l_ind += 1
+    if is_srt is True: # оптимизация лишних проходов
+        break
+    else:
+        is_srt is True
 
 #############################
 
